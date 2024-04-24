@@ -1,6 +1,109 @@
 /******* Change Box Model ***************/
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
 *,
 *:before,
 *:after {
   box-sizing: border-box;
+}
+html {
+  scroll-behavior: smooth;
+}
+:root {
+  /* Colors */
+  --white-color: #ffff;
+  --black-color: #252422;
+  --background-color: #fffafa;
+
+  /* fonts */
+  --paragraph-font: "Montserrat", sans-serif;
+  --font-size: 18px;
+  --font-movile-size: 12px;
+}
+/******* General styles ***************/
+body {
+  background: url("../images/site/small_check.jpg");
+  background-size: cover;
+  margin: 2%;
+  font-family: var(--paragraph-font);
+  text-align: center;
+}
+.wrapper-container {
+  border-radius: 8px;
+  border: 5px solid #219ebc;
+  background-color: var(--background-color);
+  max-width: 95%;
+  margin: 0 auto;
+}
+a {
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+/******* Header ***************/
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 2%;
+}
+header div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 2%;
+}
+.siteName a {
+  font-size: 38px;
+  font-weight: 900;
+  margin-left: 5px;
+  color: var(--black-color);
+}
+.siteName a:hover {
+  text-decoration: none;
+}
+.call-to-action {
+  font-size: var(--font-size);
+  text-transform: uppercase;
+  color: var(--black-color);
+  font-weight: 500;
+}
+/******* Nav ***************/
+.nav-container {
+  background-color: var(--black-color);
+  height: 50px;
+  display: flex;
+  align-items: center;
+  margin: 2%;
+}
+.nav-container ul {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
+  list-style-type: none;
+}
+.nav-container a {
+  color: var(--white-color);
+  font-size: var(--font-size);
+}
+/******* Footer ***************/
+footer p {
+  font-size: var(--font-size);
+  text-align: left;
+  margin-left: 2%;
+}
+/******* Hero ***************/
+.hero-container{
+  
+}
+/******* Media ***************/
+@media only screen and (max-width: 768px) {
+  .siteName a {
+    font-size: 18px;
+  }
+  .call-to-action,
+  .nav-container a {
+    font-size: var(--font-movile-size);
+  }
 }
