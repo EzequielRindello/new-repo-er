@@ -46,6 +46,9 @@ h1 {
 p {
   font-size: var(--font-size);
 }
+br {
+  background-color: var(--background-color);
+}
 /******* Header ***************/
 header {
   display: flex;
@@ -109,7 +112,7 @@ footer p {
   margin-top: 3%;
   padding: 15px 40px;
   color: var(--white-color);
-  background-color:#219ebc ;
+  background-color: #219ebc;
   cursor: pointer;
 }
 .hero-container img {
@@ -137,6 +140,57 @@ footer p {
   align-items: center;
   justify-content: center;
 }
+/******* Upgrades / reviews ***************/
+.cars-info {
+  margin: 10% 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  height: 400px;
+}
+.cars-info img {
+  width: 60px;
+}
+.cars-info section {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.cars-info ul {
+  width: fit-content;
+  text-align: left;
+  font-style: italic;
+}
+.cars-info li {
+  margin: 10px;
+}
+.upgrades-div {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  width: 600px;
+}
+.upgrades-div .row {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 10px;
+}
+.upgrades-div div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  flex-basis: calc(50% - 5px);
+}
+.upgrades-div a,
+.upgrades-div {
+  margin-top: 20px;
+  color: var(--black-color);
+}
 /******* Media ***************/
 @media only screen and (max-width: 1366px) {
   .info-hero-container {
@@ -145,11 +199,26 @@ footer p {
     bottom: 7%;
     left: 7%;
   }
+  .cars-info {
+    flex-direction: column;
+    align-items: center;
+    margin: 15% 0;
+    width: 100%;
+  }
+  .cars-info section {
+    margin-bottom: 5%;
+  }
+  .cars-info {
+    margin: 30% 0;
+  }
 }
 @media only screen and (max-width: 900px) {
   .info-hero-container {
     bottom: -3%;
     left: 4%;
+  }
+  .cars-info {
+    margin: 30% 0;
   }
 }
 @media only screen and (max-width: 768px) {
@@ -180,11 +249,28 @@ footer p {
   .info-hero-container {
     width: 100px;
     height: fit-content;
-    top:20%;
+    top: 20%;
     left: 5%;
   }
   .hero-container button {
     padding: 5px 10px;
     font-size: 10px;
+  }
+  .upgrades-div {
+    width: 400px;
+  }
+  .cars-info {
+    margin: 55% 0;
+  }
+  .cars-info h2 {
+    font-size: 18px;
+  }
+  .cars-info section {
+    width: 100%;
+  }
+}
+@media only screen and (max-width: 400px) {
+  .cars-info {
+    margin: 70% 0;
   }
 }
