@@ -15,10 +15,10 @@ VALUES (
 UPDATE account
 SET account_type = 'Admin '
 WHERE account_firstname = 'Tony'
-  AND account_id = 3;
+  AND account_id = 1;
 -- delete Tony Stark SQL statement
 DELETE FROM account
-WHERE account_id = 3;
+WHERE account_id = 1;
 -- description update SQL statement
 UPDATE inventory
 SET inv_description = REPLACE(
