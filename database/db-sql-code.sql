@@ -2,7 +2,7 @@ CREATE TYPE public.account_type AS ENUM
     ('Client', 'Employee', 'Admin ');
 
 ALTER TYPE public.account_type
-    OWNER TO demo456;
+    OWNER TO demo456; -- may change over time
 
 
 
@@ -238,3 +238,15 @@ VALUES   (
     'White',
     5
   );
+
+UPDATE inventory
+SET inv_description = REPLACE(
+    inv_description,
+    'small interiors',
+    'a huge interior'
+  )
+WHERE inv_id = 10;
+
+UPDATE inventory
+SET inv_image = REPLACE(inv_image, '/images/', '/images/vehicles/'),
+    inv_thumnail = REPLACE(inv_thumnail, '/images/', '/images/vehicles/');
