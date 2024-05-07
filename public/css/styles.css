@@ -191,6 +191,41 @@ footer p {
   margin-top: 20px;
   color: var(--black-color);
 }
+/******* Grid ***************/
+#inv-display {
+  list-style: none;
+  margin: 4%;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  grid-gap: 20px;
+}
+#inv-display li {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 10px;
+}
+#inv-display li img {
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+  border-radius: 5px;
+  border-bottom: 4px solid #333; 
+}
+.namePrice {
+  text-align: center;
+}
+.namePrice h2 {
+  font-size: 1.2em;
+  margin-top: 10px;
+}
+.namePrice span {
+  display: block;
+  font-size: 1.1em;
+  color: #333;
+  margin-top: 5px;
+}
 /******* Media ***************/
 @media only screen and (max-width: 1366px) {
   .info-hero-container {
@@ -267,6 +302,9 @@ footer p {
   }
   .cars-info section {
     width: 100%;
+  }
+  #inv-display {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   }
 }
 @media only screen and (max-width: 400px) {
