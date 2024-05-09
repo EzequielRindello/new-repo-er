@@ -75,6 +75,60 @@ Util.buildClassificationGrid = async function (data) {
   }
   return grid;
 };
+/* **************************************
+ * Build the detail view HTML
+ * ************************************ */
+Util.buildDetailGrid = async function (data) {
+  let grid = "";
+  if (data !== undefined && data.length > 0) {
+    grid += '<div class="detail-grid">';
+    data.forEach((vehicle) => {
+      grid += '<div class="detail-item">';
+      grid += '<div class="image-container">';
+      grid +=
+        '<img src="' +
+        vehicle.inv_image +
+        '" alt="Image of ' +
+        vehicle.inv_make +
+        " " +
+        vehicle.inv_model +
+        ' on CSE Motors" />';
+      grid += "</div>";
+      grid += '<div class="details-container">';
+      grid += "<h2>" + vehicle.inv_make + " " + vehicle.inv_model + "</h2>";
+      grid +=
+        '<p class="price"><strong> Price: $' +
+        new Intl.NumberFormat("en-US").format(vehicle.inv_price) +
+        "</strong></p>";
+      grid +=
+        '<p class="description"><strong>Description</strong>: ' +
+        vehicle.inv_description +
+        "</p>";
+      grid +=
+        '<p class="miles"><strong>Color:</strong> ' +
+        vehicle.inv_color +
+        "</p>";
+      grid +=
+        '<p class="miles"><strong>Miles:</strong> ' +
+        new Intl.NumberFormat("en-US").format(vehicle.inv_miles) +
+        "</p>";
+      grid +=
+        '<a class="cta-button" href="../../inv/detail/' +
+        vehicle.inv_id +
+        '" title="View ' +
+        vehicle.inv_make +
+        " " +
+        vehicle.inv_model +
+        ' details"><button>Buy now!</button></a>';
+      grid += "</div>";
+      grid += "</div>";
+    });
+    grid += "</div>";
+  } else {
+    grid += '<p class="notice">Sorry, no matching vehicles could be found.</p>';
+  }
+  return grid;
+};
 
 /* ****************************************
  * Middleware For Handling Errors
