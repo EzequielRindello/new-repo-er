@@ -351,6 +351,11 @@ footer p {
   font-size: 14px;
   margin: 5px 0;
 }
+.pop-up li{
+  color: red;
+  list-style-type: none;
+  font-weight: 600;
+}
 /******* Media ***************/
 @media only screen and (max-width: 1366px) {
   .info-hero-container {
