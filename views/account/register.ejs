@@ -47,6 +47,8 @@
         class="input"
         name="password"
         placeholder="Enter your Password"
+        pattern="(?=.*\d)(?=.*[A-Z])(?=.*\W).{12,}"
+        title="Password must be 12 characters or more, and contain at least one uppercase letter, one number, and one special character."
         required
       />
     </div>
