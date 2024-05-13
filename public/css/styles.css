@@ -261,6 +261,9 @@ footer p {
   margin-top: 20px;
 }
 /******* Login form ***************/
+#password-btn{
+  cursor: pointer;
+}
 .form-container{
   display: grid;
   place-content: center;
