@@ -1,0 +1,59 @@
+<% if (title) { %>
+<h1><%= title %></h1>
+<div class="form-container">
+  <form class="form" action="/register" method="POST">
+    <div class="flex-column">
+      <label>First Name </label>
+    </div>
+    <div class="inputForm">
+      <input
+        type="text"
+        class="input"
+        name="firstName"
+        placeholder="Enter your First Name"
+        required
+      />
+    </div>
+    <div class="flex-column">
+      <label>Last Name </label>
+    </div>
+    <div class="inputForm">
+      <input
+        type="text"
+        class="input"
+        name="lastName"
+        placeholder="Enter your Last Name"
+        required
+      />
+    </div>
+    <div class="flex-column">
+      <label>Email</label>
+    </div>
+    <div class="inputForm">
+      <input
+        type="email"
+        class="input"
+        name="email"
+        placeholder="Enter your Email"
+        required
+      />
+    </div>
+    <div class="flex-column">
+      <label>Password</label>
+    </div>
+    <div class="inputForm">
+      <input
+        type="password"
+        class="input"
+        name="password"
+        placeholder="Enter your Password"
+        required
+      />
+    </div>
+    <button type="submit" class="button-submit">Register</button>
+    <p class="p">
+      Already have an account? <a class="span" href="/account/login">Log In</a>
+    </p>
+  </form>
+</div>
+<% } else { res.redirect('/') } %>

@@ -284,6 +284,7 @@ footer p {
 .flex-column > label {
   color: #151717;
   font-weight: 600;
+  margin-left: 10px;
 }
 .inputForm {
   border: 1.5px solid #ecedec;
