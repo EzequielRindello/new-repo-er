@@ -1,8 +1,17 @@
 <% if (title) { %>
 <h1><%= title %></h1>
 <div class="pop-up"><%- messages() %></div>
+<% if (errors) { %>
+<ul class="notice">
+  <% errors.array().forEach(error => { %>
+  <li><%= error.msg %></li>
+  <% }) %>
+</ul>
+<% } %>
 <div class="form-container" id="register-container">
   <form class="form" action="/account/register" method="post">
+    <span>ALL FIELDS ARE REQUIRED</span>
+    <br />
     <div class="flex-column">
       <label>First Name </label>
     </div>
@@ -53,7 +62,8 @@
         title="Password must be 12 characters or more, and contain at least one uppercase letter, one number, and one special character."
         required
       />
-      <svg id="password-btn"
+      <svg
+        id="password-btn"
         viewBox="0 0 576 512"
         height="1em"
         xmlns="http://www.w3.org/2000/svg"
@@ -63,6 +73,10 @@
         ></path>
       </svg>
     </div>
+    <span
+      >Passwords must be at least 12 characters and contain at least 1 number, 1
+      capital letter and 1 special character</span
+    >
     <button type="submit" class="button-submit">Register</button>
     <p class="p">
       Already have an account? <a class="span" href="/account/login">Log In</a>
