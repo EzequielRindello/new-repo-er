@@ -42,8 +42,8 @@ app.use(
   })
 );
 
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 // Express Messages Middleware
 app.use(require("connect-flash")());
 app.use(function (req, res, next) {
@@ -63,6 +63,8 @@ app.use("/inv", inventoryRoute);
 app.use("/inv", detailRoute);
 // Account route
 app.use("/account", require("./routes/accountRoute"));
+// Management route
+app.use("/inv", require("./routes/managementRoute"));
 // Error route
 app.use("/", errorRoute);
 
