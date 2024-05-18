@@ -93,17 +93,22 @@ async function registerNewCar(req, res) {
   );
 
   if (regResult) {
-    req.flash("notice", `Congratulations, you\'re registered ${inv_model}.`);
+    const grid = await utilities.buildClassificationList();
+    req.flash("notice", `Congratulations, you've registered ${inv_model}.`);
     res.status(201).render("./account/vehicle", {
-      title: "New vehicle",
+      title: "New Vehicle",
       nav,
+      grid,
       errors: null,
     });
   } else {
+    const grid = await utilities.buildClassificationList();
     req.flash("notice", "Sorry, the registration failed.");
     res.status(501).render("./account/vehicle", {
-      title: "New vehicle",
+      title: "New Vehicle",
       nav,
+      grid,
+      errors: [{ msg: "Vehicle registration failed." }],
     });
   }
 }

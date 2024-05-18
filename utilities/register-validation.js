@@ -46,11 +46,6 @@ validate.registrationChek = () => {
       .escape()
       .notEmpty()
       .withMessage("Image path is required."),
-    body("inv_thumbnail")
-      .trim()
-      .escape()
-      .notEmpty()
-      .withMessage("Thumbnail path is required."),
     body("inv_price")
       .trim()
       .escape()
