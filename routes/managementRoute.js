@@ -12,7 +12,7 @@ router.get("/new-vehicle", utilities.handleErrors(managementController.buildNewV
 // post
 router.post(
   "/new-classification",
-  regValidate.registationRules(),
+  regValidate.registrationRules(),
   regValidate.checkRegData,
   utilities.handleErrors(managementController.registerClassification)
 );
