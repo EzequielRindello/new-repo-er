@@ -1,5 +1,6 @@
 const utilities = require("../utilities");
-const accountModel = require("../models/management-model")
+const accountModel = require("../models/management-model");
+const detailModel = require("../models/inventory-model");
 
 /* ***************************
  *  Build management view
@@ -27,9 +28,11 @@ async function buildNewClassification(req, res, next) {
  * ************************** */
 async function buildNewVehicle(req, res, next) {
   let nav = await utilities.getNav();
+  const grid = await utilities.buildClassificationList();
   res.render("./account/vehicle", {
     title: "New Vehicle",
     nav,
+    grid,
     errors: null,
   });
 }
@@ -38,13 +41,9 @@ async function buildNewVehicle(req, res, next) {
  * *************************************** */
 async function registerClassification(req, res) {
   let nav = await utilities.getNav();
-  const {
-    classification_name
-  } = req.body;
+  const { classification_name } = req.body;
 
-  const regResult = await accountModel.registerAccount(
-    classification_name
-  );
+  const regResult = await accountModel.registerAccount(classification_name);
 
   if (regResult) {
     req.flash(
@@ -65,9 +64,54 @@ async function registerClassification(req, res) {
   }
 }
 
+async function registerNewCar(req, res) {
+  let nav = await utilities.getNav();
+  const {
+    inv_make,
+    inv_model,
+    inv_year,
+    inv_description,
+    inv_image,
+    inv_thumnail,
+    inv_price,
+    inv_miles,
+    inv_color,
+    classification_id,
+  } = req.body;
+
+  const regResult = await accountModel.registerNewCar(
+    inv_make,
+    inv_model,
+    inv_year,
+    inv_description,
+    inv_image,
+    inv_thumnail,
+    inv_price,
+    inv_miles,
+    inv_color,
+    classification_id
+  );
+
+  if (regResult) {
+    req.flash("notice", `Congratulations, you\'re registered ${inv_model}.`);
+    res.status(201).render("./account/vehicle", {
+      title: "New vehicle",
+      nav,
+      errors: null,
+    });
+  } else {
+    req.flash("notice", "Sorry, the registration failed.");
+    res.status(501).render("./account/vehicle", {
+      title: "New vehicle",
+      nav,
+    });
+  }
+}
+
 module.exports = {
   buildManagement,
   buildNewClassification,
   buildNewVehicle,
   registerClassification,
+  registerNewCar,
 };

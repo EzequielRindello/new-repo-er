@@ -16,5 +16,11 @@ router.post(
   regValidate.checkRegData,
   utilities.handleErrors(managementController.registerClassification)
 );
+router.post(
+  "/new-vehicle",
+  regValidate.registrationChek(),
+  regValidate.checkCarData,
+  utilities.handleErrors(managementController.registerNewCar)
+);
 
 module.exports = router;
