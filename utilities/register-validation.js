@@ -2,14 +2,22 @@ const utilities = require("./index");
 const { body, validationResult } = require("express-validator");
 const validate = {};
 
-validate.registationRules = () => {
+validate.registrationRules = () => {
   return [
     body("classification_name")
       .trim()
       .escape()
       .notEmpty()
       .isLength({ min: 1 })
-      .withMessage("Please provide a valid classification name."), 
+      .withMessage("Please provide a valid classification name.")
+      .isAlpha("en-US", { ignore: " " })
+      .withMessage(
+        "Classification name must contain alphabetic characters only."
+      )
+      .matches(/^[A-Za-z]+$/)
+      .withMessage(
+        "Classification name must be alphabetic characters only without spaces."
+      ),
   ];
 };
 
