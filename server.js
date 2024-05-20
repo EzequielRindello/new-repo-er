@@ -18,6 +18,7 @@ const errorRoute = require("./routes/errorRoute");
 const session = require("express-session");
 const pool = require("./database");
 const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
 
 /* ***********************
  * View Engine and Templates
@@ -41,6 +42,8 @@ app.use(
     name: "sessionId",
   })
 );
+app.use(cookieParser());
+app.use(utilities.checkJWTToken);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded

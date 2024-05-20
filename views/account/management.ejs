@@ -1,0 +1,13 @@
+<% if (title) { %>
+<h1><%= title %></h1>
+<% if (errors && errors.length > 0) { %>
+<ul>
+  <% errors.forEach(function(error) { %>
+  <li><%= error.msg %></li>
+  <% }) %>
+</ul>
+<% } %>
+<h3>Welcome!!!</h3>
+<p>You're logged in.</p>
+<a href="">Edit Account Information </a>
+<% } else { res.redirect('/') } %>
