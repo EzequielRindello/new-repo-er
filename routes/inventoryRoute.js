@@ -17,11 +17,6 @@ router.get(
 );
 
 // post routes
-// router.post(
-//   "/edit/:inv_id",
-//   regValidate.registrationChek(),
-//   regValidate.checkCarData,
-//   managementModel.creaLaFuncionDePOST
-// );
+router.post("/update/", invController.updateInventory)
 
 module.exports = router;

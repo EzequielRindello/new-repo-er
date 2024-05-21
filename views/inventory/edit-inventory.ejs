@@ -1,159 +1,166 @@
 <% if (title) { %>
-  <h1><%= title %></h1>
-  <div class="pop-up"><%- messages() %></div>
-  <% if (errors) { %>
-  <ul class="notice">
-    <% errors.array().forEach(error => { %>
-    <li><%= error.msg %></li>
-    <% }) %>
-  </ul>
-  <% } %>
-  <div class="form-container">
-    <form class="form" action="/inv/update" method="post">
-      <br />
-      <span>ALL FIELDS ARE REQUIRED</span>
-      <br />
-      <div class="flex-column">
-        <label>Classification</label>
-      </div>
-  
-      <%- grid %>
-  
-      <div class="flex-column">
-        <label>Make</label>
-      </div>
-      <div class="inputForm">
-        <input
-          type="text"
-          class="input"
-          name="inv_make"
-          placeholder="Min of 3 characters"
-          pattern=".{3,}"
-          title="Please enter at least 3 characters"
-          value="<%= inv_make %>"
-          required
-        />
-      </div>
-  
-      <div class="flex-column">
-        <label>Model</label>
-      </div>
-      <div class="inputForm">
-        <input
-          type="text"
-          class="input"
-          name="inv_model"
-          placeholder="Min of 3 characters"
-          pattern=".{3,}"
-          title="Please enter at least 3 characters"
-          value="<%= inv_model %>"
-          required
-        />
-      </div>
-  
-      <div class="flex-column">
-        <label>Description</label>
-      </div>
-      <div class="inputForm">
-        <textarea
-          class="textarea"
-          name="inv_description"
-          placeholder="Enter additional information here"
-          rows="4"
-          cols="50"
-          required
-        ><%= inv_description %></textarea>
-      </div>
-  
-      <div class="flex-column">
-        <label>Image Path</label>
-      </div>
-      <div class="inputForm">
-        <input
-          type="text"
-          class="input"
-          name="inv_image"
-          value="<%= inv_image %>"
-          required
-        />
-      </div>
-  
-      <div class="flex-column">
-        <label>Thumbnail Path</label>
-      </div>
-      <div class="inputForm">
-        <input
-          type="text"
-          class="input"
-          name="inv_thumnail"
-          value="<%= inv_thumnail %>"
-          required
-        />
-      </div>
-  
-      <div class="flex-column">
-        <label>Price</label>
-      </div>
-      <div class="inputForm">
-        <input
-          type="text"
-          class="input"
-          name="inv_price"
-          placeholder="decimal or integer"
-          pattern="^\d+(\.\d+)?$"
-          title="Please enter a valid decimal or integer value"
-          value="<%= inv_price %>"
-          required
-        />
-      </div>
-  
-      <div class="flex-column">
-        <label>Year</label>
-      </div>
-      <div class="inputForm">
-        <input
-          type="text"
-          class="input"
-          name="inv_year"
-          placeholder="4 digits year"
-          pattern="^\d{4}$"
-          title="Please enter a 4-digit year"
-          value="<%= inv_year %>"
-          required
-        />
-      </div>
-  
-      <div class="flex-column">
-        <label>Miles</label>
-      </div>
-      <div class="inputForm">
-        <input
-          type="text"
-          class="input"
-          name="inv_miles"
-          placeholder="Digits only"
-          pattern="^\d+$"
-          title="Please enter digits only"
-          value="<%= inv_miles %>"
-          required
-        />
-      </div>
-  
-      <div class="flex-column">
-        <label>Color</label>
-      </div>
-      <div class="inputForm">
-        <input
-          type="text"
-          class="input"
-          name="inv_color"
-          value="<%= inv_color %>"
-          required
-        />
-      </div>
-  
-      <button class="button-submit" type="submit">Update Vehicle</button>
-    </form>
-  </div>
-  <% } else { res.redirect('/') } %>
-  
+<h1><%= title %></h1>
+<div class="pop-up"><%- messages() %></div>
+<% if (errors) { %>
+<ul class="notice">
+  <% errors.array().forEach(error => { %>
+  <li><%= error.msg %></li>
+  <% }) %>
+</ul>
+<% } %>
+<div class="form-container">
+  <form id="updateForm" class="form" action="/inv/update" method="post">
+    <br />
+    <span>ALL FIELDS ARE REQUIRED</span>
+    <br />
+    <div class="flex-column">
+      <label>Classification</label>
+    </div>
+
+    <%- grid %>
+
+    <div class="flex-column">
+      <label>Make</label>
+    </div>
+    <div class="inputForm">
+      <input
+        type="text"
+        class="input"
+        name="inv_make"
+        placeholder="Min of 3 characters"
+        pattern=".{3,}"
+        title="Please enter at least 3 characters"
+        value="<%= inv_make %>"
+        required
+      />
+    </div>
+
+    <div class="flex-column">
+      <label>Model</label>
+    </div>
+    <div class="inputForm">
+      <input
+        type="text"
+        class="input"
+        name="inv_model"
+        placeholder="Min of 3 characters"
+        pattern=".{3,}"
+        title="Please enter at least 3 characters"
+        value="<%= inv_model %>"
+        required
+      />
+    </div>
+
+    <div class="flex-column">
+      <label>Description</label>
+    </div>
+    <div class="inputForm">
+      <textarea
+        class="textarea"
+        name="inv_description"
+        placeholder="Enter additional information here"
+        rows="4"
+        cols="50"
+        required
+      >
+        <%= inv_description %></textarea
+      >
+    </div>
+
+    <div class="flex-column">
+      <label>Image Path</label>
+    </div>
+    <div class="inputForm">
+      <input
+        type="text"
+        class="input"
+        name="inv_image"
+        value="<%= inv_image %>"
+        required
+      />
+    </div>
+
+    <div class="flex-column">
+      <label>Thumbnail Path</label>
+    </div>
+    <div class="inputForm">
+      <input
+        type="text"
+        class="input"
+        name="inv_thumnail"
+        value="<%= inv_thumnail %>"
+        required
+      />
+    </div>
+
+    <div class="flex-column">
+      <label>Price</label>
+    </div>
+    <div class="inputForm">
+      <input
+        type="text"
+        class="input"
+        name="inv_price"
+        placeholder="decimal or integer"
+        pattern="^\d+(\.\d+)?$"
+        title="Please enter a valid decimal or integer value"
+        value="<%= inv_price %>"
+        required
+      />
+    </div>
+
+    <div class="flex-column">
+      <label>Year</label>
+    </div>
+    <div class="inputForm">
+      <input
+        type="text"
+        class="input"
+        name="inv_year"
+        placeholder="4 digits year"
+        pattern="^\d{4}$"
+        title="Please enter a 4-digit year"
+        value="<%= inv_year %>"
+        required
+      />
+    </div>
+
+    <div class="flex-column">
+      <label>Miles</label>
+    </div>
+    <div class="inputForm">
+      <input
+        type="text"
+        class="input"
+        name="inv_miles"
+        placeholder="Digits only"
+        pattern="^\d+$"
+        title="Please enter digits only"
+        value="<%= inv_miles %>"
+        required
+      />
+    </div>
+
+    <div class="flex-column">
+      <label>Color</label>
+    </div>
+    <div class="inputForm">
+      <input
+        type="text"
+        class="input"
+        name="inv_color"
+        value="<%= inv_color %>"
+        required
+      />
+    </div>
+
+    <button class="button-submit" type="submit">Update Vehicle</button>
+
+    <% if (locals.inv_id) { %>
+    <input type="hidden" name="inv_id" value="<%= locals.inv_id %>" />
+    <% } else { %>
+    <input type="hidden" name="inv_id" />
+    <% } %>
+  </form>
+</div>
+<% } else { res.redirect('/') } %>
