@@ -11,7 +11,11 @@ router.get("/login", utilities.handleErrors(accController.buildLogin));
 router.get("/register", utilities.handleErrors(accController.buildRegister));
 
 // Account management view
-router.get("/", utilities.handleErrors(accController.buildAccountManagement));
+router.get(
+  "/",
+  utilities.checkLogin,
+  utilities.handleErrors(accController.buildAccountManagement)
+);
 
 // Process the registration data
 router.post(
