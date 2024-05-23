@@ -10,6 +10,7 @@ const regValidate = require("../utilities/register-validation");
 router.get("/type/:classificationId", invController.buildByClassificationId);
 
 router.get("/edit/:inv_id", invController.editInventoryView);
+router.get("/delete/:inv_id", invController.deleteView);
 
 router.get(
   "/getInventory/:classification_id",
@@ -18,5 +19,6 @@ router.get(
 
 // post routes
 router.post("/update/", invController.updateInventory)
+router.post("/delete/", invController.deleteItem)
 
 module.exports = router;

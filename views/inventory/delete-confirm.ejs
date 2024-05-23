@@ -1,0 +1,81 @@
+<% if (title) { %>
+<h1><%= title %></h1>
+<div class="pop-up"><%- messages() %></div>
+<% if (errors) { %>
+<ul class="notice">
+  <% errors.array().forEach(error => { %>
+  <li><%= error.msg %></li>
+  <% }) %>
+</ul>
+<% } %>
+<div class="form-container">
+  <form id="deleteForm" class="form" action="/inv/delete" method="post">
+    <br />
+    <strong><p style="color: red">The delete is permanent.</p></strong>
+    <br />
+    <div class="flex-column">
+      <label>Classification</label>
+    </div>
+
+    <div class="flex-column">
+      <label>Make</label>
+    </div>
+    <div class="inputForm">
+      <input
+        type="text"
+        class="input"
+        name="inv_make"
+        placeholder="Min of 3 characters"
+        pattern=".{3,}"
+        title="Please enter at least 3 characters"
+        value="<%= inv_make %>"
+        required
+      />
+    </div>
+
+    <div class="flex-column">
+      <label>Model</label>
+    </div>
+    <div class="inputForm">
+      <input
+        type="text"
+        class="input"
+        name="inv_model"
+        placeholder="Min of 3 characters"
+        pattern=".{3,}"
+        title="Please enter at least 3 characters"
+        value="<%= inv_model %>"
+        required
+      />
+    </div>
+
+    <div class="flex-column">
+      <label>Year</label>
+    </div>
+    <div class="inputForm">
+      <input
+        type="text"
+        class="input"
+        name="inv_year"
+        placeholder="4 digits year"
+        pattern="^\d{4}$"
+        title="Please enter a 4-digit year"
+        value="<%= inv_year %>"
+        required
+      />
+    </div>
+
+    <button class="button-submit" type="submit">DELETE Vehicle</button>
+
+    <% if (locals.inv_id) { %>
+    <input type="hidden" name="inv_id" value="<%= locals.inv_id %>" />
+    <% } else { %>
+    <input type="hidden" name="inv_id" />
+    <% } %>
+  </form>
+</div>
+<% } else { %>
+<script>
+  window.location = "/";
+</script>
+<% } %>
