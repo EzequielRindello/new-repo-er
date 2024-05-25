@@ -17,6 +17,13 @@ router.get(
   utilities.handleErrors(accController.buildAccountManagement)
 );
 
+router.get("/logout", (req, res) => {
+  console.log("Logout route hit");
+  res.clearCookie("jwt");
+  console.log("JWT cookie cleared");
+  res.redirect("/?logout=true");
+});
+
 // Process the registration data
 router.post(
   "/register",

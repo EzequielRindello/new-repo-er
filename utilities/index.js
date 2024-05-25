@@ -154,7 +154,13 @@ Util.buildClassificationList = async function (classification_id = null) {
 /* ****************************************
  * Middleware to check token validity
  **************************************** */
+
 Util.checkJWTToken = (req, res, next) => {
+  let nashe = req.cookies.jwt;
+  console.log("-----------------------------");
+  console.log({ nashe });
+  console.log("-----------------------------");
+
   if (req.cookies.jwt) {
     jwt.verify(
       req.cookies.jwt,
@@ -162,12 +168,24 @@ Util.checkJWTToken = (req, res, next) => {
       function (err, accountData) {
         if (err) {
           req.flash("Please log in");
-          res.clearCookie("jwt");
-          return res.redirect("/account/login");
+          Util.clearJWTToken(req, res);
+        } else {
+          // Log the accountData to understand the structure
+          console.log("-----------------------------");
+          console.log("accountData:", JSON.stringify(accountData, null, 2));
+          console.log("-----------------------------");
+
+          // Save the account data in res.locals
+          res.locals.accountData = accountData;
+          res.locals.loggedin = 1;
+
+          // Store account type in a cookie
+          res.cookie("account_type", accountData.account_type.trim(), {
+            httpOnly: false,
+          });
+
+          next();
         }
-        res.locals.accountData = accountData;
-        res.locals.loggedin = 1;
-        next();
       }
     );
   } else {

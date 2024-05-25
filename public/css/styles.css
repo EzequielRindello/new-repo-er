@@ -76,6 +76,7 @@ header div {
   text-transform: uppercase;
   color: var(--black-color);
   font-weight: 500;
+  margin: 5px;
 }
 /******* Nav ***************/
 .nav-container {
