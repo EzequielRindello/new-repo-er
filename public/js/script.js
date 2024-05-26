@@ -48,7 +48,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
   if (
-    accountType === "Admin" ||
+    accountType === "Admin " ||
     accountType === "Employee" ||
     accountType === "Client"
   ) {
@@ -61,7 +61,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  if (accountType === "Admin" || accountType === "Employee") {
+  if (accountType === "Admin " || accountType === "Employee") {
     try {
       document.getElementById("credentials").style.display = "block";
     } catch (error) {
