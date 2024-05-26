@@ -46,6 +46,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
+
   if (
     accountType === "Admin" ||
     accountType === "Employee" ||

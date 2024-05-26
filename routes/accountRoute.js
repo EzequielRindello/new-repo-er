@@ -10,6 +10,8 @@ router.get("/login", utilities.handleErrors(accController.buildLogin));
 
 router.get("/register", utilities.handleErrors(accController.buildRegister));
 
+router.get("/edit", utilities.handleErrors(accController.buildEdit));
+
 // Account management view
 router.get(
   "/",
@@ -31,6 +33,8 @@ router.post(
   regValidate.checkRegData,
   utilities.handleErrors(accController.registerAccount)
 );
+
+router.post("/updatedata", utilities.handleErrors(accController.updateAccount));
 
 // Process the login request
 router.post(

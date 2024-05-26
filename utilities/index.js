@@ -156,10 +156,6 @@ Util.buildClassificationList = async function (classification_id = null) {
  **************************************** */
 
 Util.checkJWTToken = (req, res, next) => {
-  let nashe = req.cookies.jwt;
-  console.log("-----------------------------");
-  console.log({ nashe });
-  console.log("-----------------------------");
 
   if (req.cookies.jwt) {
     jwt.verify(
@@ -170,10 +166,6 @@ Util.checkJWTToken = (req, res, next) => {
           req.flash("Please log in");
           Util.clearJWTToken(req, res);
         } else {
-          // Log the accountData to understand the structure
-          console.log("-----------------------------");
-          console.log("accountData:", JSON.stringify(accountData, null, 2));
-          console.log("-----------------------------");
 
           // Save the account data in res.locals
           res.locals.accountData = accountData;

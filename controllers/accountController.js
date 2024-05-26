@@ -27,6 +27,45 @@ async function buildRegister(req, res, next) {
   });
 }
 
+async function buildEdit(req, res, next) {
+  let nav = await utilities.getNav();
+  let accountData = null;
+
+  if (req.cookies.jwt) {
+    jwt.verify(
+      req.cookies.jwt,
+      process.env.ACCESS_TOKEN_SECRET,
+      function (err, decodedData) {
+        if (err) {
+          return next(err);
+        } else {
+          accountData = decodedData;
+          res.locals.accountData = accountData;
+          res.locals.loggedin = 1;
+
+          res.cookie("account_type", accountData.account_type.trim(), {
+            httpOnly: false,
+          });
+
+          res.render("account/credentials", {
+            title: "Change Your credentials",
+            nav,
+            accountData,
+            errors: null,
+          });
+        }
+      }
+    );
+  } else {
+    res.render("account/credentials", {
+      title: "Change Your credentials",
+      nav,
+      accountData,
+      errors: null,
+    });
+  }
+}
+
 async function buildAccountManagement(req, res, next) {
   try {
     let nav = await utilities.getNav();
@@ -95,6 +134,59 @@ async function registerAccount(req, res) {
   }
 }
 
+async function updateAccount(req, res) {
+  if (!req.cookies.jwt) {
+    req.flash("notice", "You must be logged in to update your account.");
+    return res.redirect("/account/login");
+  }
+
+  jwt.verify(
+    req.cookies.jwt,
+    process.env.ACCESS_TOKEN_SECRET,
+    async function (err, decodedData) {
+      if (err) {
+        req.flash("notice", "Invalid token. Please log in again.");
+        return res.redirect("/account/login");
+      }
+
+      const { account_id } = decodedData;
+      const { account_firstname, account_lastname, account_email } = req.body;
+
+      if (!account_firstname || !account_lastname || !account_email) {
+        req.flash("notice", "All fields are required.");
+        return res.redirect("/account/edit");
+      }
+
+      try {
+        const regResult = await accountModel.updateAccount(
+          account_id,
+          account_firstname,
+          account_lastname,
+          account_email
+        );
+
+        if (regResult) {
+
+          req.flash(
+            "notice",
+            `Congratulations, you've updated your info ${account_firstname}. Please loging again!`
+          );
+          return res.redirect("/account/logout");
+        } else {
+          req.flash(
+            "notice",
+            "Failed to update your account. Please try again."
+          );
+          return res.redirect("/account/edit");
+        }
+      } catch (error) {
+        req.flash("notice", "An error occurred during the update.");
+        return res.redirect("/account/edit");
+      }
+    }
+  );
+}
+
 /* ****************************************
  *  Process login request
  * ************************************ */
@@ -142,4 +234,6 @@ module.exports = {
   registerAccount,
   accountLogin,
   buildAccountManagement,
+  buildEdit,
+  updateAccount,
 };
