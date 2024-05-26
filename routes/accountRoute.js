@@ -34,7 +34,9 @@ router.post(
   utilities.handleErrors(accController.registerAccount)
 );
 
+// post for updates
 router.post("/updatedata", utilities.handleErrors(accController.updateAccount));
+router.post("/updatepassword", utilities.handleErrors(accController.updateOnlyPassword));
 
 // Process the login request
 router.post(

@@ -46,6 +46,20 @@ async function updateAccount(
   }
 }
 
+/* *****************************
+ *   Update existing password
+ * *************************** */
+async function updatepassword(account_id, account_password) {
+  try {
+    const sql =
+      "UPDATE account SET account_password = $1 WHERE account_id = $2 RETURNING *";
+    const result = await pool.query(sql, [account_password, account_id]);
+    return result;
+  } catch (error) {
+    console.error("Database update error:", error);
+    throw new Error("Database update failed");
+  }
+}
 
 /* **********************
  *   Check for existing email
@@ -80,4 +94,5 @@ module.exports = {
   checkExistingEmail,
   getAccountByEmail,
   updateAccount,
+  updatepassword,
 };

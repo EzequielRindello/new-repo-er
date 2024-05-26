@@ -166,10 +166,9 @@ async function updateAccount(req, res) {
         );
 
         if (regResult) {
-
           req.flash(
             "notice",
-            `Congratulations, you've updated your info ${account_firstname}. Please loging again!`
+            `Congratulations, you've updated your info ${account_firstname}. Please log ing`
           );
           return res.redirect("/account/logout");
         } else {
@@ -180,6 +179,59 @@ async function updateAccount(req, res) {
           return res.redirect("/account/edit");
         }
       } catch (error) {
+        req.flash("notice", "An error occurred during the update.");
+        return res.redirect("/account/edit");
+      }
+    }
+  );
+}
+
+async function updateOnlyPassword(req, res) {
+  if (!req.cookies.jwt) {
+    req.flash("notice", "You must be logged in to update your account.");
+    return res.redirect("/account/login");
+  }
+
+  jwt.verify(
+    req.cookies.jwt,
+    process.env.ACCESS_TOKEN_SECRET,
+    async function (err, decodedData) {
+      if (err) {
+        req.flash("notice", "Invalid token. Please log in again.");
+        return res.redirect("/account/login");
+      }
+
+      const { account_id } = decodedData;
+      const { account_password } = req.body;
+
+      if (!account_password) {
+        req.flash("notice", "All fields are required.");
+        return res.redirect("/account/edit");
+      }
+
+      try {
+        const hashedPassword = await bcrypt.hash(account_password, 10);
+
+        const regResult = await accountModel.updatepassword(
+          account_id,
+          hashedPassword
+        );
+
+        if (regResult.rowCount > 0) {
+          req.flash(
+            "notice",
+            "Congratulations, you've updated your password. Please log in."
+          );
+          return res.redirect("/account/logout");
+        } else {
+          req.flash(
+            "notice",
+            "Failed to update your account. Please try again."
+          );
+          return res.redirect("/account/edit");
+        }
+      } catch (error) {
+        console.error("Error during password update:", error); 
         req.flash("notice", "An error occurred during the update.");
         return res.redirect("/account/edit");
       }
@@ -236,4 +288,5 @@ module.exports = {
   buildAccountManagement,
   buildEdit,
   updateAccount,
+  updateOnlyPassword,
 };
