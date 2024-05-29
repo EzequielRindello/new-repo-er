@@ -9,6 +9,15 @@ async function getClassifications() {
   );
 }
 /* ***************************
+ *  Get delorean data
+ * ************************** */
+async function getDelorean() {
+  const data= await pool.query(
+    "SELECT * FROM public.special"
+  );
+  return data.rows;
+}
+/* ***************************
  *  Get all inventory items and classification_name by classification_id
  * ************************** */
 async function getInventoryByClassificationId(classification_id) {
@@ -93,4 +102,5 @@ module.exports = {
   getCarById,
   updateInventory,
   deleteInventory,
+  getDelorean,
 };

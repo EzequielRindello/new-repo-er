@@ -3,6 +3,7 @@ const express = require("express");
 const router = new express.Router();
 const utilities = require("../utilities/index");
 const invController = require("../controllers/invController");
+const deloreanControler = require("../controllers/deloreanControler");
 const managementModel = require("../models/management-model");
 const regValidate = require("../utilities/register-validation");
 
@@ -17,8 +18,10 @@ router.get(
   utilities.handleErrors(invController.getInventoryJSON)
 );
 
+router.get("/delorean",deloreanControler.buildDeloreanDetail);
+
 // post routes
-router.post("/update/", invController.updateInventory)
-router.post("/delete/", invController.deleteItem)
+router.post("/update/", invController.updateInventory);
+router.post("/delete/", invController.deleteItem);
 
 module.exports = router;

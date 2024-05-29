@@ -115,7 +115,7 @@ Util.buildDetailGrid = async function (data) {
         new Intl.NumberFormat("en-US").format(vehicle.inv_miles) +
         "</p>";
       grid +=
-        '<a class="cta-button" href="../../inv/detail/' +
+        '<a class="cta-button" href="/own-today/' +
         vehicle.inv_id +
         '" title="View ' +
         vehicle.inv_make +
