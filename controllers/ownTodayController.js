@@ -49,7 +49,54 @@ ownCont.builOwnTodayForDelorean = async function (req, res, next) {
 };
 
 ownCont.confirmPurchase = async function (req, res, next) {
-  res.redirect("/");
+  let nav = await utilities.getNav();
+  const vehicleId = req.params.id;
+  const email = req.cookies.account_email;
+  const vehicleData = await ownModel.getCarById(vehicleId);
+  const accData = await ownModel.getAccountByEmail(email);
+
+  const postResult = await ownModel.postInventory(
+    vehicleData[0].inv_id,
+    accData.account_id
+  );
+
+  if (postResult) {
+    res.render("./sales/sales", {
+      title: "Thanks for your purchase!",
+      nav,
+    });
+  } else {
+    res.render("./errors/error", {
+      title: "An error has occurred",
+      nav,
+      message: "An error has occurred",
+    });
+  }
+};
+
+ownCont.confirmDelorean = async function (req, res, next) {
+  let nav = await utilities.getNav();
+  const email = req.cookies.account_email;
+  const vehicleData = await ownModel.getDelorean();
+  const accData = await ownModel.getAccountByEmail(email);
+
+  const postResult = await ownModel.postInventory(
+    vehicleData[0].inv_id,
+    accData.account_id
+  );
+
+  if (postResult) {
+    res.render("./sales/sales", {
+      title: "Dude you got a DeLorean!!!!!",
+      nav,
+    });
+  } else {
+    res.render("./errors/error", {
+      title: "An error has occurred",
+      nav,
+      message: "please consult cse210@motors.org",
+    });
+  }
 };
 
 module.exports = ownCont;

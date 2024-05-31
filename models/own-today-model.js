@@ -33,4 +33,17 @@ async function getAccountByEmail(account_email) {
   }
 }
 
-module.exports = { getCarById, getDelorean, getAccountByEmail};
+async function postInventory(inv_id, account_id) {
+  let sale_date = new Date();
+  try {
+    const result = await pool.query(
+      "INSERT INTO public.sales (inv_id, account_id, sale_date) VALUES ($1, $2, $3) RETURNING *",
+      [inv_id, account_id, sale_date]
+    );
+    return result.rows[0];
+  } catch (error) {
+    return new Error("No matching email found");
+  }
+}
+
+module.exports = { getCarById, getDelorean, getAccountByEmail, postInventory };

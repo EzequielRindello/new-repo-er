@@ -147,10 +147,15 @@ Util.buildOwnGrid = async function (accountData, vehicleData) {
     grid += '<div class="confirmation-grid">';
     grid += '<div class="client-details">';
     grid += "<h2>Confirm your details:</h2>";
-    grid += "<p><strong>First Name:</strong> " + accountData.account_firstname + "</p>";
-    grid += "<p><strong>Last Name:</strong> " + accountData.account_lastname + "</p>";
+    grid +=
+      "<p><strong>First Name:</strong> " +
+      accountData.account_firstname +
+      "</p>";
+    grid +=
+      "<p><strong>Last Name:</strong> " + accountData.account_lastname + "</p>";
     grid += "<p><strong>Email:</strong> " + accountData.account_email + "</p>";
-    grid += "<p><strong>Account Type:</strong> " + accountData.account_type + "</p>";
+    grid +=
+      "<p><strong>Account Type:</strong> " + accountData.account_type + "</p>";
     grid += "</div>";
     grid += '<div class="vehicle-details">';
     grid += '<div class="detail-item">';
@@ -165,7 +170,8 @@ Util.buildOwnGrid = async function (accountData, vehicleData) {
       ' on CSE Motors" />';
     grid += "</div>";
     grid += '<div class="details-container">';
-    grid += "<h2>" + vehicleData.inv_make + " " + vehicleData.inv_model + "</h2>";
+    grid +=
+      "<h2>" + vehicleData.inv_make + " " + vehicleData.inv_model + "</h2>";
     grid +=
       '<p class="price"><strong> Price: $' +
       new Intl.NumberFormat("en-US").format(vehicleData.inv_price) +
@@ -186,13 +192,28 @@ Util.buildOwnGrid = async function (accountData, vehicleData) {
     grid += "</div>";
     grid += "</div>";
     grid += '<div class="action-buttons">';
-    grid += '<button class="cancel-button"><a href="/">Cancel Purchase</a></button>';
-    // form
-    grid += '<form action="/own/confirm-purchase" method="POST">';
-    grid += '<input type="hidden" name="username" value="' + accountData.account_email + '">';
-    grid += '<input type="hidden" name="vehicleId" value="' + vehicleData.inv_id + '">';
+    grid +=
+      '<button class="cancel-button"><a href="/">Cancel Purchase</a></button>';
+
+    let formActionUrl =
+      vehicleData.inv_model === "DeLorean"
+        ? "/own/confirm-purchase-delorean/"
+        : "/own/confirm-purchase/";
+    grid +=
+      '<form action="' +
+      formActionUrl +
+      vehicleData.inv_id +
+      '" method="POST">';
+    grid +=
+      '<input type="hidden" name="username" value="' +
+      accountData.account_email +
+      '">';
+    grid +=
+      '<input type="hidden" name="vehicleId" value="' +
+      vehicleData.inv_id +
+      '">';
     grid += '<button type="submit" class="buy-now-button">Get now!</button>';
-    grid += '</form>';
+    grid += "</form>";
 
     grid += "</div>";
     grid += "</div>";
