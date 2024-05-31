@@ -42,8 +42,28 @@ async function postInventory(inv_id, account_id) {
     );
     return result.rows[0];
   } catch (error) {
-    return new Error("No matching email found");
+    return new Error("No matching inventory found");
   }
 }
 
-module.exports = { getCarById, getDelorean, getAccountByEmail, postInventory };
+("SELECT * FROM sales WHERE account_id = $1");
+
+async function getSales(inv_id) {
+  try {
+    const result = await pool.query(
+      "'SELECT * FROM sales WHERE account_id = $1'",
+      [inv_id]
+    );
+    return result.rows[0];
+  } catch (error) {
+    return new Error("No matching inventory found");
+  }
+}
+
+module.exports = {
+  getCarById,
+  getDelorean,
+  getAccountByEmail,
+  postInventory,
+  getSales,
+};
