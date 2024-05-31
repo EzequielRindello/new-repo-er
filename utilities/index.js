@@ -114,20 +114,90 @@ Util.buildDetailGrid = async function (data) {
         '<p class="miles"><strong>Miles:</strong> ' +
         new Intl.NumberFormat("en-US").format(vehicle.inv_miles) +
         "</p>";
-      grid +=
-        '<a class="cta-button" href="/own-today/' +
-        vehicle.inv_id +
-        '" title="View ' +
-        vehicle.inv_make +
-        " " +
-        vehicle.inv_model +
-        ' details"><button>Buy now!</button></a>';
+
+      if (vehicle.inv_model === "DeLorean") {
+        grid +=
+          '<a class="cta-button" href="/own/special/' +
+          vehicle.inv_id +
+          '" title="View special DeLorean details"><button>Special DeLorean!</button></a>';
+      } else {
+        grid +=
+          '<a class="cta-button" href="/own/own-today/' +
+          vehicle.inv_id +
+          '" title="View ' +
+          vehicle.inv_make +
+          " " +
+          vehicle.inv_model +
+          ' details"><button>Buy now!</button></a>';
+      }
+
       grid += "</div>";
       grid += "</div>";
     });
     grid += "</div>";
   } else {
     grid += '<p class="notice">Sorry, no matching vehicles could be found.</p>';
+  }
+  return grid;
+};
+
+Util.buildOwnGrid = async function (accountData, vehicleData) {
+  let grid = "";
+  if (accountData && vehicleData) {
+    grid += '<div class="confirmation-grid">';
+    grid += '<div class="client-details">';
+    grid += "<h2>Confirm your details:</h2>";
+    grid += "<p><strong>First Name:</strong> " + accountData.account_firstname + "</p>";
+    grid += "<p><strong>Last Name:</strong> " + accountData.account_lastname + "</p>";
+    grid += "<p><strong>Email:</strong> " + accountData.account_email + "</p>";
+    grid += "<p><strong>Account Type:</strong> " + accountData.account_type + "</p>";
+    grid += "</div>";
+    grid += '<div class="vehicle-details">';
+    grid += '<div class="detail-item">';
+    grid += '<div class="image-container">';
+    grid +=
+      '<img src="' +
+      vehicleData.inv_image +
+      '" alt="Image of ' +
+      vehicleData.inv_make +
+      " " +
+      vehicleData.inv_model +
+      ' on CSE Motors" />';
+    grid += "</div>";
+    grid += '<div class="details-container">';
+    grid += "<h2>" + vehicleData.inv_make + " " + vehicleData.inv_model + "</h2>";
+    grid +=
+      '<p class="price"><strong> Price: $' +
+      new Intl.NumberFormat("en-US").format(vehicleData.inv_price) +
+      "</strong></p>";
+    grid +=
+      '<p class="description"><strong>Description:</strong> ' +
+      vehicleData.inv_description +
+      "</p>";
+    grid +=
+      '<p class="color"><strong>Color:</strong> ' +
+      vehicleData.inv_color +
+      "</p>";
+    grid +=
+      '<p class="miles"><strong>Miles:</strong> ' +
+      new Intl.NumberFormat("en-US").format(vehicleData.inv_miles) +
+      "</p>";
+    grid += "</div>";
+    grid += "</div>";
+    grid += "</div>";
+    grid += '<div class="action-buttons">';
+    grid += '<button class="cancel-button"><a href="/">Cancel Purchase</a></button>';
+    // form
+    grid += '<form action="/own/confirm-purchase" method="POST">';
+    grid += '<input type="hidden" name="username" value="' + accountData.account_email + '">';
+    grid += '<input type="hidden" name="vehicleId" value="' + vehicleData.inv_id + '">';
+    grid += '<button type="submit" class="buy-now-button">Get now!</button>';
+    grid += '</form>';
+
+    grid += "</div>";
+    grid += "</div>";
+  } else {
+    grid += '<p class="notice">Sorry, no data available to display.</p>';
   }
   return grid;
 };
@@ -156,7 +226,6 @@ Util.buildClassificationList = async function (classification_id = null) {
  **************************************** */
 
 Util.checkJWTToken = (req, res, next) => {
-
   if (req.cookies.jwt) {
     jwt.verify(
       req.cookies.jwt,
@@ -166,13 +235,15 @@ Util.checkJWTToken = (req, res, next) => {
           req.flash("Please log in");
           Util.clearJWTToken(req, res);
         } else {
-
           // Save the account data in res.locals
           res.locals.accountData = accountData;
           res.locals.loggedin = 1;
 
           // Store account type in a cookie
           res.cookie("account_type", accountData.account_type.trim(), {
+            httpOnly: false,
+          });
+          res.cookie("account_email", accountData.account_email.trim(), {
             httpOnly: false,
           });
 

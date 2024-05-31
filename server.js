@@ -68,6 +68,8 @@ app.use("/inv", detailRoute);
 app.use("/account", require("./routes/accountRoute"));
 // Management route
 app.use("/inv", require("./routes/managementRoute"));
+// own today route
+app.use("/own", require("./routes/ownTodayRoute"));
 // Error route
 app.use("/", errorRoute);
 

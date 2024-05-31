@@ -388,7 +388,7 @@ table {
   text-align: left;
 }
 thead tr {
-  background-color:#0c6f88;
+  background-color: #0c6f88;
   color: #ffffff;
   text-align: left;
   font-weight: bold;
@@ -415,6 +415,74 @@ a {
 }
 a:hover {
   text-decoration: underline;
+}
+/******* own today ***************/
+.confirmation-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  max-width: 1200px;
+  margin: auto;
+}
+.confirmation-grid a {
+  color: #fff;
+}
+.client-details,
+.vehicle-details {
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fff;
+}
+.client-details h2,
+.vehicle-details h2 {
+  margin-top: 0;
+  font-size: 1.5em;
+  color: #333;
+}
+.client-details p,
+.vehicle-details p {
+  margin: 10px 0;
+  font-size: 1em;
+  color: #666;
+}
+.image-container img {
+  max-width: 100%;
+  border-radius: 8px;
+}
+.action-buttons {
+  grid-column: span 2;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+}
+.cancel-button,
+.buy-now-button {
+  padding: 10px 20px;
+  font-size: 1em;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.cancel-button {
+  background-color: #f44336;
+  color: #fff;
+}
+.cancel-button:hover {
+  background-color: #d32f2f;
+}
+.buy-now-button {
+  background-color: #4caf50;
+  color: #fff;
+}
+.buy-now-button:hover {
+  background-color: #388e3c;
 }
 /******* Media ***************/
 @media only screen and (max-width: 1366px) {
@@ -508,6 +576,15 @@ a:hover {
   }
   .form {
     width: 100%;
+  }
+  .confirmation-grid {
+    grid-template-columns: 1fr;
+    padding: 2px;
+    gap: 2px;
+  }
+  .action-buttons {
+    flex-direction: column;
+    gap: 10px;
   }
 }
 @media only screen and (max-width: 400px) {
